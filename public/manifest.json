@@ -1,0 +1,26 @@
+{
+  "name": "Laboris 勞則 | 香港法定勞動力總帳",
+  "short_name": "Laboris",
+  "description": "香港法定勞動力總帳與 418 連續性合約精算決策引擎",
+  "start_url": "/Laboris/",
+  "scope": "/Laboris/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "lang": "zh-HK",
+  "icons": [
+    {
+      "src": "Laboris192icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "Laboris512icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
