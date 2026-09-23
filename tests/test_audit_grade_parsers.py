@@ -14,45 +14,48 @@ def dual_column_pdf_stream() -> bytes:
     c = canvas.Canvas(buf, pagesize=letter)
     width, height = letter
 
-    # 左欄 (X: 40 ~ 220)：高密度獨立詞彙，包含法規錨點
+    # 設定 7pt 小字型，確保左欄每行文字寬度小於 180pt，不跨越中線 (250pt)
+    c.setFont("Helvetica", 7)
+
+    # 左欄 (X: 40 ~ 220)：字數充沛且包含法規錨點
     left_lines = [
-        "Cap 57 Employment Ordinance Comprehensive Review Report",
-        "Section 4 Statutory Assessment Briefing Guidance Note",
-        "Schedule 1 Continuous Contract Evaluation Practice Rules",
-        "Statutory Threshold Analysis For Hong Kong Employers",
-        "Audit Trail Evidence Verification Logic Framework",
-        "Deterministic Formula Calculations for Enterprise Human Resources",
-        "Compliance Architecture Board Action Playbook Preview",
-        "第 57 章 《 僱傭條例 》 檢討 報告 法律 分析",
-        "第 4 條(1) 連續 受僱 規定 評估 準則 說明",
-        "附表 1 擬議 修訂 方案 實施 原則 指引",
-        "前線 兼職 員工 福利 保障 評估 會議 紀錄",
-        "勞工處 勞顧會 共識 方案 工時 計算 標準",
+        "Cap 57 Review Report Summary",
+        "Section 4 Statutory Assessment",
+        "Schedule 1 Practice Rules",
+        "Continuous Employment Test",
+        "Statutory Threshold Analysis",
+        "Audit Trail Evidence Logic",
+        "Deterministic Formula Code",
+        "Compliance Action Playbook",
+        "第 57 章 僱傭條例 報告",
+        "第 4 條(1) 連續 受僱 評估",
+        "附表 1 擬議 修訂 方案",
+        "法定 權益 衝擊 試算 成果",
     ]
     y = height - 60
     for line in left_lines:
         c.drawString(40, y, line)
-        y -= 20
+        y -= 18
 
-    # 右欄 (X: 360 ~ 560)：中央保持清晰空隙 (Gutter: 220 ~ 360)
+    # 右欄 (X: 380 ~ 550)：完全在 355pt 右側
     right_lines = [
-        "Section 4 Statutory Benefits Entitlement Summary Table",
-        "Paragraph 3.2 Financial Impact Provision Modeling Study",
-        "Grace Period Schedule Forecast 180 Calendar Days",
-        "Operational Guidance for Corporate Employers Compliance",
-        "Continuous Contract Working Hours Threshold Evaluation",
-        "Composite Loading Factor Calculations for Budgeting Pool",
-        "Actuarial Sensitivity Matrix Baseline Scenario Comparison",
-        "Corporate Risk Management Guidelines Boardroom Briefing",
-        "法定 權益 衝擊 敏感度 試算 成果 摘要 表格",
-        "精算 模型 基準 情境 預算 提撥 評估 報告",
-        "預期 寬限期 為 180 天 執行 整備 藍圖",
-        "企業 人力 資本 治理 實務 指南 與 檢核 項目",
+        "Section 4 Benefits Entitlement",
+        "Paragraph 3.2 Impact Study",
+        "Grace Period 180 Days",
+        "Operational Guidance Note",
+        "Working Hours Threshold",
+        "Composite Loading Factor",
+        "Actuarial Sensitivity Matrix",
+        "Corporate Risk Management",
+        "法定 權益 衝擊 敏感度 表格",
+        "精算 模型 基準 情境 預算",
+        "預期 寬限期 為 180 天",
+        "企業 人力 資本 治理 實務",
     ]
     y = height - 60
     for line in right_lines:
-        c.drawString(360, y, line)
-        y -= 20
+        c.drawString(380, y, line)
+        y -= 18
 
     c.save()
     buf.seek(0)
