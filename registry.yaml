@@ -1,0 +1,19 @@
+schema_version: "2.0.0"
+registry_id: "laboris-hk-statutory-registry"
+last_updated: "2026-09-23T09:30:00+08:00"
+
+kernel_compatibility:
+  min_core_version: "1.0.0"
+  current_core_version: "1.0.0"
+
+packs:
+  - id: "continuous_contract"
+    code: "HK-CAP57-SEC-418"
+    ordinance_ref: "Cap. 57 Employment Ordinance"
+    name_zh: "418 連續性合約衝擊沙盒"
+    name_en: "Continuous Contract (418) Stress-Tester"
+    status: "active"
+    pack_version: "0.1.0"
+    schema_compliance: "2.0.0"
+    entry_path: "packs/continuous_contract"
+    description: "針對香港《僱傭條例》連續性合約由每週 18 小時擬放寬至 4 週合計 68/60 小時之法定成本增額壓力測試模組。"
