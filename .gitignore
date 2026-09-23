@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local Laboris Data, Logs, and Snapshots (Strict Exclusion)
+data/logs/
+data/snapshots/
+data/evidence_ledger.jsonl
+data/evidence_ledger.head.json
+public/api/pack-418.json
