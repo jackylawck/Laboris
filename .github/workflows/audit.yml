@@ -11,7 +11,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: 1. Install Runtime and Dev Dependencies
+      - name: 1. Install Dependencies
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt -r requirements-dev.txt
@@ -22,17 +22,13 @@ jobs:
       - name: 3. Single Source of Truth Web Manifest Sync
         run: python scripts/build_manifest.py
 
-      - name: 4. InfoSec SAST Analysis (Bandit Audit)
+      - name: 4. InfoSec SAST Analysis (Report Only in Pilot)
         run: |
-          # 掃描 core 與 packs 目錄
-          bandit -r core/ packs/ -ll -i
-        continue-on-error: true
+          bandit -r core/ packs/ -ll -i || true
 
-      - name: 5. Dependency Vulnerability Audit (pip-audit Scan)
+      - name: 5. Dependency Vulnerability Audit (Report Only in Pilot)
         run: |
-          # 記錄 CVE 報告，試運行期不阻斷 CI
-          pip-audit --desc
-        continue-on-error: true
+          pip-audit --desc || true
 
       - name: 6. Execute Deterministic Evaluator & Architecture Unit Tests
         run: pytest tests/ packs/ --verbose
