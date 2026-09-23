@@ -1,0 +1,38 @@
+name: Regulatory Architecture & InfoSec Audit
+
+on: [push, pull_request]
+
+jobs:
+  governance-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 1. Install Runtime and Dev Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: 2. Strict JSON Schema Validation
+        run: python scripts/validate_schemas.py
+
+      - name: 3. Single Source of Truth Web Manifest Sync
+        run: python scripts/build_manifest.py
+
+      - name: 4. InfoSec SAST Analysis (Bandit Audit)
+        run: |
+          # 掃描 core 與 packs 目錄
+          bandit -r core/ packs/ -ll -i
+        continue-on-error: true
+
+      - name: 5. Dependency Vulnerability Audit (pip-audit Scan)
+        run: |
+          # 記錄 CVE 報告，試運行期不阻斷 CI
+          pip-audit --desc
+        continue-on-error: true
+
+      - name: 6. Execute Deterministic Evaluator & Architecture Unit Tests
+        run: pytest tests/ packs/ --verbose
