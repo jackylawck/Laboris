@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "laboris"
+version = "1.0.0"
+description = "Hong Kong Statutory Workforce & Regulatory Liability Ledger"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.31.0",
+    "pyyaml>=6.0.1",
+    "jsonschema>=4.20.0",
+    "pdfplumber>=0.11.0",
+    "beautifulsoup4>=4.12.3",
+    "cryptography>=42.0.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "packs"]
+python_files = ["test_*.py"]
+pythonpath = ["."]
