@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LaborisScenariosSchema",
+  "type": "object",
+  "required": ["schema_version", "policy_id", "scenarios"],
+  "properties": {
+    "schema_version": { "type": "string", "const": "2.0.0" },
+    "policy_id": { "type": "string" },
+    "scenarios": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "rule_type", "desc"],
+        "properties": {
+          "name": { "type": "string" },
+          "rule_type": { "type": "string", "pattern": "^[a-z_]+$" },
+          "desc": { "type": "string" }
+        }
+      }
+    }
+  }
+}
