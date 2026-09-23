@@ -1,0 +1,19 @@
+schema_version: "2.0.0"
+policy_id: "HK-CAP57-SEC-418"
+
+actions:
+  - action_id: "ACT-418-01"
+    title: "修訂前線門市兼職員工合約範本"
+    owner_role: "ER_Legal_Counsel"
+    priority: "HIGH"
+    sla_days_before_enactment: 60
+    target_document: "Part_Time_Standard_Contract_2026.docx"
+    description: "更新連續性合約工時確認條款，明確界定 4 週合併工時結算週期。"
+
+  - action_id: "ACT-418-02"
+    title: "HRIS 排班系統累計工時門檻預警設置"
+    owner_role: "HR_Tech_Operations"
+    priority: "CRITICAL"
+    sla_days_before_enactment: 90
+    target_document: "HRIS_Roster_Engine_Config.json"
+    description: "於排班模組加入滾動 4 週累積達 60 小時自動觸發排班經理覆核警告。"
