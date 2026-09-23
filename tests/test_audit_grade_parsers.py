@@ -1,5 +1,6 @@
 import pytest
 import io
+from pathlib import Path
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from core.parsers.pdf_parser import parse_pdf_layout_aware, extract_comprehensive_anchors
@@ -13,15 +14,33 @@ def dual_column_pdf_stream() -> bytes:
     c = canvas.Canvas(buf, pagesize=letter)
     width, height = letter
 
-    # 左欄 (X: 50 ~ 250)
-    c.drawString(50, height - 100, "第 57 章《僱傭條例》檢討報告")
-    c.drawString(50, height - 120, "第 4 條(1) 連續受僱規定評估")
-    c.drawString(50, height - 140, "附表 1 擬議修訂方案 A")
+    # 左欄 (X: 50 ~ 250) - 放入足夠字數確保通過雙欄幾何判斷 (words >= 25)
+    left_lines = [
+        "第 57 章《僱傭條例》檢討報告",
+        "第 4 條(1) 連續受僱規定評估說明",
+        "附表 1 擬議修訂方案 A 實施原則",
+        "法例基礎與合規性分析說明文字一",
+        "前線兼職員工福利保障擴大範疇二",
+        "連續性受僱時數計算規則說明三",
+    ]
+    y = height - 100
+    for line in left_lines:
+        c.drawString(50, y, line)
+        y -= 20
 
     # 右欄 (X: 350 ~ 550)
-    c.drawString(350, height - 100, "Section 4 Statutory Benefits")
-    c.drawString(350, height - 120, "Paragraph 3.2 Financial Impact")
-    c.drawString(350, height - 140, "預期寬限期為 180 天")
+    right_lines = [
+        "Section 4 Statutory Benefits Assessment",
+        "Paragraph 3.2 Financial Impact Evaluation",
+        "Grace Period Schedule Forecast 180 Days",
+        "Operational Guidance for Corporate Employers",
+        "Audit Trail Integrity Verification Steps",
+        "Deterministic Formula Accrual Calculation",
+    ]
+    y = height - 100
+    for line in right_lines:
+        c.drawString(350, y, line)
+        y -= 20
 
     c.save()
     buf.seek(0)
@@ -51,7 +70,6 @@ def test_chapter_pattern_statutory_short_circuit_in_large_document():
     assert res.has_critical_statutory_delta is True
 
 def test_old_html_selector_failure_forces_substantive_change():
-    # 修正：避免使用 b"..." 包裹非 ASCII 中文字元，改用 .encode("utf-8")
     old_html = "<html><body><div id='deprecated-id'>舊版公告</div></body></html>".encode("utf-8")
     new_html = "<html><body><div id='active-content'><p>新版公告</p></div></body></html>".encode("utf-8")
 
@@ -83,6 +101,7 @@ def test_snapshot_sequence_ordering_under_same_second(tmp_path):
 
     archive_dir = tmp_path / "snapshots" / sid / "archive"
     assert archive_dir.exists()
-    archived_files = list(archive_dir.glob("*.gz"))
+    # 修正：強制按檔名排序，避免不同 OS / File System 的 listdir 隨機無序
+    archived_files = sorted(list(archive_dir.glob("*.gz")), key=lambda p: p.name)
     assert len(archived_files) >= 1
     assert "00000001_" in archived_files[0].name
