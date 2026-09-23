@@ -1,0 +1,24 @@
+schema_version: "2.0.0"
+policy_id: "HK-CAP57-SEC-418"
+
+scenarios:
+  current_status_quo:
+    name: "現行基準 (Current 418)"
+    rule_type: "consecutive_weekly_minimum"
+    window_weeks: 4
+    weekly_minimum_hours: 18
+    desc: "連續 4 週每週不少於 18 小時"
+
+  proposed_scenario_68h:
+    name: "勞顧會共識方案 (4週合計 68 小時)"
+    rule_type: "aggregate_window_total"
+    window_weeks: 4
+    aggregate_minimum_hours: 68
+    desc: "4 週累計工時合計不少於 68 小時"
+
+  proposed_scenario_60h:
+    name: "工會倡議寬鬆方案 (4週合計 60 小時)"
+    rule_type: "aggregate_window_total"
+    window_weeks: 4
+    aggregate_minimum_hours: 60
+    desc: "4 週累計工時合計不少於 60 小時"
