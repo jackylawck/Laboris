@@ -44,13 +44,13 @@
   <meta name="theme-color" content="#0f172a">
   <meta name="msapplication-TileColor" content="#0f172a">
   
-  <!-- 🎨 圖示宣告 (Icons) -->
+  <!-- 🎨 圖示宣告 (Icons & Favicon) -->
   <link rel="icon" type="image/png" sizes="192x192" href="Laboris192icon.png">
   <link rel="icon" type="image/png" sizes="512x512" href="Laboris512icon.png">
   <link rel="apple-touch-icon" sizes="180x180" href="Laboris192icon.png">
   <link rel="apple-touch-icon" sizes="512x512" href="Laboris512icon.png">
 
-  <!-- 🛡️ 企業級安全策略：CSP (消除 frame-ancestors 警告) 與權限防護 -->
+  <!-- 🛡️ 企業級安全策略：CSP 與權限防護 -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'none';
     script-src 'self';
@@ -72,7 +72,7 @@
 <body class="bg-slate-900 text-slate-100 min-h-screen">
   <div class="max-w-6xl mx-auto px-4 py-8">
     
-    <!-- Top Bar & Language Selector -->
+    <!-- Top Bar & Language / Compliance Controls -->
     <header class="border-b border-slate-800 pb-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <div>
         <h1 class="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
@@ -83,6 +83,9 @@
       </div>
 
       <div class="flex items-center gap-3">
+        <button id="btn-open-compliance" class="px-2.5 py-1 text-xs font-semibold rounded border border-slate-700 bg-slate-800 text-slate-300 hover:text-white hover:border-slate-500 transition">
+          ⚖️ <span data-i18n="nav_compliance">合規架構</span>
+        </button>
         <div class="flex border border-slate-700 rounded-lg p-1 bg-slate-950">
           <button id="btn-lang-zh" class="px-2 py-1 text-xs font-semibold rounded bg-emerald-800 text-white">繁體中文</button>
           <button id="btn-lang-en" class="px-2 py-1 text-xs font-semibold rounded bg-slate-800 text-slate-400 hover:text-white">English</button>
@@ -148,6 +151,45 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⚖️ 全球法規管轄權與合規架構 Modal -->
+  <div id="compliance-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl">
+      <div class="p-4 border-b border-slate-800 flex justify-between items-center">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2">
+          <span>⚖️</span>
+          <span data-i18n="modal_comp_title">Laboris 法律管轄權與法規合規清冊</span>
+        </h3>
+        <button id="btn-close-compliance" class="text-slate-400 hover:text-white text-lg font-mono">&times;</button>
+      </div>
+      <div class="p-6 overflow-y-auto text-xs text-slate-300 space-y-4 leading-relaxed font-sans">
+        <div class="p-3 bg-emerald-950/40 border border-emerald-800/60 rounded">
+          <strong class="text-emerald-300 block mb-1" data-i18n="modal_sec1_title">✅ 香港法例第 486 章《個人資料（私隱）條例》(Cap. 486 PDPO)</strong>
+          <span data-i18n="modal_sec1_desc">落實「零伺服器儲存」架構。所有工時數據均於本機記憶體解析，伺服器不接收、不記錄任何個人檔案；強制啟動 k ≥ 5 匿名化防禦。</span>
+        </div>
+
+        <div class="p-3 bg-slate-800/60 border border-slate-700 rounded">
+          <strong class="text-slate-200 block mb-1" data-i18n="modal_sec2_title">🚫 歐盟《人工智能法案》(EU AI Act) 與 ISO 42001 — 正式豁免聲明</strong>
+          <span data-i18n="modal_sec2_desc">本系統不包含任何 AI、機器學習或大語言模型。全系統均由香港法例第 57 章之確定性（Deterministic）數理規則驅動，依法不屬於 EU AI Act 第 3 條定義之 AI 系統，亦不適用 ISO/IEC 42001 規範。</span>
+        </div>
+
+        <div class="p-3 bg-slate-800/60 border border-slate-700 rounded">
+          <strong class="text-slate-200 block mb-1" data-i18n="modal_sec3_title">🛡️ 資訊安全對標原則 (ISO/IEC 27001 Alignment)</strong>
+          <span data-i18n="modal_sec3_desc">系統實施嚴格 CSP 防禦、同源資源隔離、依賴雜湊比對（Hash-pinning）與不可篡改之鏈式存證總帳（Evidence Ledger）。本專案未取得第三方證書，不作虛假認證宣稱。</span>
+        </div>
+
+        <div class="p-3 bg-amber-950/40 border border-amber-800/60 rounded text-amber-200/90">
+          <strong class="block mb-1" data-i18n="modal_sec4_title">⚠️ 法定免責聲明與香港法院專屬管轄</strong>
+          <span data-i18n="modal_sec4_desc">本系統產出之所有評估報告與行動卡均屬企業風險管理之決策情資工具，絕不構成香港正式法律或精算諮詢意見。本專案受中華人民共和國香港特別行政區法律管轄。</span>
+        </div>
+      </div>
+      <div class="p-4 border-t border-slate-800 text-right">
+        <button id="btn-close-compliance-confirm" class="px-4 py-1.5 text-xs bg-emerald-800 hover:bg-emerald-700 text-white rounded font-medium transition" data-i18n="modal_btn_ack">
+          我已知悉 (Acknowledge)
+        </button>
       </div>
     </div>
   </div>
