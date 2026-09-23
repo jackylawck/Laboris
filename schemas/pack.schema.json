@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LaborisPolicyPackSchema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pack_id",
+    "policy_code",
+    "ordinance_ref",
+    "requires_core",
+    "pack_version",
+    "legislative_stage"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "const": "2.0.0" },
+    "pack_id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "policy_code": { "type": "string", "pattern": "^HK-[A-Z0-9]+-[A-Z0-9-]+$" },
+    "ordinance_ref": { "type": "string", "minLength": 5 },
+    "requires_core": { "type": "string", "pattern": "^[><=\\^~0-9., ]+$" },
+    "pack_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "legislative_stage": { 
+      "type": "string", 
+      "enum": ["consultation", "consultation_completed_moving_to_bill", "first_reading", "second_reading", "committee_stage", "third_reading", "enacted", "gazetted_in_force"] 
+    }
+  },
+  "additionalProperties": true
+}
