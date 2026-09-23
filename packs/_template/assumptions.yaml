@@ -1,0 +1,7 @@
+schema_version: "2.0.0"
+policy_id: "HK-CAP000-TEMPLATE"
+assumptions_version: "1.0.0"
+
+actuarial_loadings:
+  base_scenario:
+    composite_loading_factor: 0.140
