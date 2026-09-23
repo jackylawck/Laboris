@@ -1,7 +1,7 @@
 /**
  * Laboris Client-Side Execution Engine (True 10/10)
  * 徹底消除 innerHTML，全部改採 createSafeElement 防範 XSS；
- * 支援動態數據多語言字典分派。
+ * 支援動態數據多語言字典分派與合規 Modal 互動。
  */
 window.Laboris = window.Laboris || {};
 
@@ -142,12 +142,14 @@ window.Laboris.app = (() => {
   function init() {
     initEngine();
 
+    // 樣本數據加載
     document.getElementById('load-sample-btn')?.addEventListener('click', () => {
       const sample = generateDeterministicSample();
       const res = evaluateCohort(sample);
       if (res) renderResults(res);
     });
 
+    // CSV 拖放與選取
     const dropZone = document.getElementById('drop-zone');
     const fileInput = document.getElementById('csv-input');
     dropZone?.addEventListener('click', () => fileInput?.click());
@@ -174,6 +176,12 @@ window.Laboris.app = (() => {
       };
       reader.readAsText(file);
     });
+
+    // ⚖️ 合規架構 Modal 彈窗開關監聽
+    const modal = document.getElementById('compliance-modal');
+    document.getElementById('btn-open-compliance')?.addEventListener('click', () => modal?.classList.remove('hidden'));
+    document.getElementById('btn-close-compliance')?.addEventListener('click', () => modal?.classList.add('hidden'));
+    document.getElementById('btn-close-compliance-confirm')?.addEventListener('click', () => modal?.classList.add('hidden'));
   }
 
   return { init, reRenderCurrentResults };
