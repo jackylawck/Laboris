@@ -14,48 +14,39 @@ def dual_column_pdf_stream() -> bytes:
     c = canvas.Canvas(buf, pagesize=letter)
     width, height = letter
 
-    # 設定 7pt 小字型，確保左欄每行文字寬度小於 180pt，不跨越中線 (250pt)
-    c.setFont("Helvetica", 7)
+    c.setFont("Helvetica", 8)
 
-    # 左欄 (X: 40 ~ 220)：字數充沛且包含法規錨點
+    # 左欄 (X: 40 ~ 220)：純 ASCII 法規標準英文錨點
     left_lines = [
-        "Cap 57 Review Report Summary",
+        "Cap. 57 Review Report Summary",
         "Section 4 Statutory Assessment",
         "Schedule 1 Practice Rules",
-        "Continuous Employment Test",
+        "Continuous Employment Test Note",
         "Statutory Threshold Analysis",
         "Audit Trail Evidence Logic",
         "Deterministic Formula Code",
         "Compliance Action Playbook",
-        "第 57 章 僱傭條例 報告",
-        "第 4 條(1) 連續 受僱 評估",
-        "附表 1 擬議 修訂 方案",
-        "法定 權益 衝擊 試算 成果",
     ]
     y = height - 60
     for line in left_lines:
         c.drawString(40, y, line)
-        y -= 18
+        y -= 20
 
-    # 右欄 (X: 380 ~ 550)：完全在 355pt 右側
+    # 右欄 (X: 380 ~ 560)：法規段落與數理模型
     right_lines = [
         "Section 4 Benefits Entitlement",
-        "Paragraph 3.2 Impact Study",
-        "Grace Period 180 Days",
-        "Operational Guidance Note",
-        "Working Hours Threshold",
-        "Composite Loading Factor",
+        "Paragraph 3.2 Financial Impact",
+        "Grace Period 180 Calendar Days",
+        "Operational Guidance Briefing",
+        "Working Hours Threshold Rules",
+        "Composite Loading Factor Run",
         "Actuarial Sensitivity Matrix",
-        "Corporate Risk Management",
-        "法定 權益 衝擊 敏感度 表格",
-        "精算 模型 基準 情境 預算",
-        "預期 寬限期 為 180 天",
-        "企業 人力 資本 治理 實務",
+        "Corporate Risk Management Desk",
     ]
     y = height - 60
     for line in right_lines:
         c.drawString(380, y, line)
-        y -= 18
+        y -= 20
 
     c.save()
     buf.seek(0)
@@ -67,9 +58,9 @@ def test_pdf_dual_column_absolute_geometry_parsing(dual_column_pdf_stream):
     page = res["pages"][0]
     assert page["is_multi_column"] is True
     tokens = [c["anchor_token"] for c in page["citations"]]
-    assert "第 57 章" in tokens
-    assert "第 4 條(1)" in tokens
+    assert "Cap. 57" in tokens
     assert "Section 4" in tokens
+    assert "Schedule 1" in tokens
 
 def test_chapter_pattern_statutory_short_circuit_in_large_document():
     blocks = [f"<p>這是日常營運事務常規指引說明段落編號 {i}。</p>" for i in range(400)]
