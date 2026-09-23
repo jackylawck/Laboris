@@ -38,7 +38,18 @@ window.Laboris.i18n = (() => {
       "scenario_proposed_scenario_60h": "工會倡議寬鬆方案 (4週合計 60 小時)",
       "desc_current_status_quo": "連續 4 週每週不少於 18 小時",
       "desc_proposed_scenario_68h": "4 週累計工時合計不少於 68 小時",
-      "desc_proposed_scenario_60h": "4 週累計工時合計不少於 60 小時"
+      "desc_proposed_scenario_60h": "4 週累計工時合計不少於 60 小時",
+      "nav_compliance": "合規架構",
+      "modal_comp_title": "Laboris 法律管轄權與法規合規清冊",
+      "modal_sec1_title": "✅ 香港法例第 486 章《個人資料（私隱）條例》(Cap. 486 PDPO)",
+      "modal_sec1_desc": "落實「零伺服器儲存」架構。所有工時數據均於本機記憶體解析，伺服器不接收、不記錄任何個人檔案；強制啟動 k ≥ 5 匿名化防禦。",
+      "modal_sec2_title": "🚫 歐盟《人工智能法案》(EU AI Act) 與 ISO 42001 — 正式豁免聲明",
+      "modal_sec2_desc": "本系統不包含任何 AI、機器學習或大語言模型。全系統均由香港法例第 57 章之確定性（Deterministic）數理規則驅動，依法不屬於 EU AI Act 第 3 條定義之 AI 系統，亦不適用 ISO/IEC 42001 規範。",
+      "modal_sec3_title": "🛡️ 資訊安全對標原則 (ISO/IEC 27001 Alignment)",
+      "modal_sec3_desc": "系統實施嚴格 CSP 防禦、同源資源隔離、依賴雜湊比對（Hash-pinning）與不可篡改之鏈式存證總帳（Evidence Ledger）。本專案未取得第三方證書，不作虛假認證宣稱。",
+      "modal_sec4_title": "⚠️ 法定免責聲明與香港法院專屬管轄",
+      "modal_sec4_desc": "本系統產出之所有評估報告與行動卡均屬企業風險管理之決策情資工具，絕不構成香港正式法律或精算諮詢意見。本專案受中華人民共和國香港特別行政區法律管轄。",
+      "modal_btn_ack": "我已知悉 (Acknowledge)"
     },
     "en-US": {
       "site_title": "Laboris",
@@ -72,7 +83,18 @@ window.Laboris.i18n = (() => {
       "scenario_proposed_scenario_60h": "Union Proposed Option (60h / 4-Week Total)",
       "desc_current_status_quo": "At least 18 hours per week for 4 consecutive weeks",
       "desc_proposed_scenario_68h": "At least 68 aggregate hours across 4-week rolling window",
-      "desc_proposed_scenario_60h": "At least 60 aggregate hours across 4-week rolling window"
+      "desc_proposed_scenario_60h": "At least 60 aggregate hours across 4-week rolling window",
+      "nav_compliance": "Compliance",
+      "modal_comp_title": "Laboris Jurisdictional & Global Compliance Ledger",
+      "modal_sec1_title": "✅ Hong Kong Cap. 486 Personal Data (Privacy) Ordinance (PDPO)",
+      "modal_sec1_desc": "Strict Zero-Server architecture. All roster processing executes within browser ephemeral memory. Zero employee records stored remotely; k ≥ 5 anonymity enforced.",
+      "modal_sec2_title": "🚫 EU Artificial Intelligence Act & ISO 42001 — Formal Exemption",
+      "modal_sec2_desc": "Laboris contains NO AI, Machine Learning, or LLMs. Driven entirely by deterministic mathematical rules of Cap. 57, it is legally out of scope of EU AI Act Art. 3 and ISO/IEC 42001.",
+      "modal_sec3_title": "🛡️ Information Security Controls (ISO/IEC 27001 Alignment)",
+      "modal_sec3_desc": "Enforces strict CSP, origin isolation, dependency hash-pinning, and append-only cryptographic provenance ledgers. Makes no false claim of accredited third-party certification.",
+      "modal_sec4_title": "⚠️ Statutory Disclaimer & HKSAR Jurisdiction",
+      "modal_sec4_desc": "Outputs and action cards are corporate risk simulation tools only, not formal legal or actuarial opinions. Governed exclusively by the laws of Hong Kong SAR.",
+      "modal_btn_ack": "Acknowledge"
     }
   };
 
