@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboris 勞則 | Statutory Workforce Ledger</title>
+  
+  <!-- 嚴格安全標頭：嚴禁 unsafe-inline 腳本、啟用 frame-ancestors 'none' 杜絕點擊劫持 -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'none';
+    script-src 'self';
+    style-src 'self';
+    img-src 'self' data:;
+    connect-src 'self';
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'none';
+    frame-ancestors 'none';
+  ">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="no-referrer">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    
+    <!-- Top Bar & Language Selector -->
+    <header class="border-b border-slate-800 pb-6 mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight text-white flex items-center gap-3">
+          <span data-i18n="site_title">Laboris 勞則</span>
+          <span class="text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 px-2 py-1 rounded" data-i18n="badge_cap">Cap. 57 審計級</span>
+        </h1>
+        <p class="text-sm text-slate-400 mt-1" data-i18n="site_subtitle">香港法定勞動力政策總帳與精算決策引擎</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="flex border border-slate-700 rounded-lg p-1 bg-slate-950">
+          <button id="btn-lang-zh" class="px-2 py-1 text-xs font-semibold rounded bg-emerald-800 text-white">繁體中文</button>
+          <button id="btn-lang-en" class="px-2 py-1 text-xs font-semibold rounded bg-slate-800 text-slate-400 hover:text-white">English</button>
+        </div>
+        <div class="text-right text-xs text-slate-500 hidden md:block">
+          <div data-i18n="sandbox_note">純客戶端本地隱私沙盒 (PDPO 零資料上傳)</div>
+          <div class="font-mono mt-1 text-slate-400">Core v1.0.0 | Schema v2.0.0</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Disclaimer Banner -->
+    <div class="bg-amber-950 border border-slate-700 rounded-lg p-4 mb-8 text-xs text-amber-200 leading-relaxed">
+      <strong data-i18n="disclaimer_title">法定責任邊界聲明：</strong>
+      <span data-i18n="disclaimer_text">本系統所有試算輸出均為企業營運治理與預算模擬輔助，不構成香港正式法律或精算諮詢意見。涉法修訂請諮詢執業常年法律顧問。</span>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
+        <h2 class="text-lg font-semibold text-white mb-4" data-i18n="step1_title">1. 匿名工時資料載入</h2>
+        <p class="text-xs text-slate-400 mb-4" data-i18n="step1_desc">拖入含 4 週工時之脫敏 CSV（強制 k ≥ 5 匿名保護，數據本機解析不離開瀏覽器）：</p>
+        
+        <div id="drop-zone" class="border-2 border-dashed border-slate-600 rounded-lg p-6 text-center hover:border-emerald-500 cursor-pointer">
+          <p class="text-xs text-slate-300" data-i18n="drop_text">點擊選擇 CSV 或將檔案拖放至此</p>
+          <input type="file" id="csv-input" accept=".csv" class="hidden">
+        </div>
+
+        <button id="load-sample-btn" class="w-full mt-4 bg-slate-700 hover:bg-slate-600 text-xs py-2 px-4 rounded text-slate-200" data-i18n="btn_sample">
+          載入展示用樣本群組 (50人兼職樣本)
+        </button>
+      </div>
+
+      <div class="lg:col-span-2 bg-slate-800 border border-slate-700 rounded-xl p-6">
+        <h2 class="text-lg font-semibold text-white mb-4" data-i18n="step2_title">2. 418 連續性合約衝擊敏感度測算</h2>
+        
+        <div id="privacy-error" class="hidden bg-rose-950 border border-slate-700 text-rose-200 text-xs p-4 rounded-lg mb-4"></div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="text-slate-400 border-b border-slate-700 bg-slate-900">
+              <tr>
+                <th class="py-3 px-3" data-i18n="th_scenario">情境方案</th>
+                <th class="py-3 px-3" data-i18n="th_definition">法定門檻定義</th>
+                <th class="py-3 px-3" data-i18n="th_headcount">合資格人數</th>
+                <th class="py-3 px-3" data-i18n="th_ratio">受影響比率</th>
+                <th class="py-3 px-3 text-right" data-i18n="th_cost">年度新增福利開支區間 (HKD)</th>
+              </tr>
+            </thead>
+            <tbody id="results-body" class="divide-y font-mono">
+              <tr>
+                <td colspan="5" class="py-8 text-center text-slate-500 font-sans" data-i18n="table_placeholder">請先載入工時資料以執行確定性精算。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-8 border-t border-slate-700 pt-6">
+          <h3 class="text-sm font-semibold text-slate-200 mb-3" data-i18n="step3_title">3. 董事會決策行動卡 (Action Cards Preview)</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs" id="action-cards-container">
+            <div class="p-3 bg-slate-900 rounded border border-slate-700 text-slate-400" data-i18n="action_placeholder">
+              載入資料後將自動依精算結果生成治理工單與 SLA 倒推排程。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="i18n.js"></script>
+  <script src="rules_registry.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
