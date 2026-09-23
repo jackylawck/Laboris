@@ -46,12 +46,12 @@ def extract_comprehensive_anchors(page_text: str, page_num: int) -> List[Dict[st
 
 def detect_column_split(words: List[Dict[str, Any]], page_width: float) -> Optional[float]:
     """
-    幾何佈局雙欄檢測：
-    1. 詞彙數 >= 12
-    2. 左半區與右半區均有詞彙分佈
-    3. 頁面中央過渡帶詞彙密度低於兩側
+    幾何佈局雙欄檢測演算法：
+    1. 詞彙數門檻降低至 >= 12，支援精簡法規範例與 mock 測試
+    2. 中線兩側均須有實質字詞分佈
+    3. 中央過渡區（Gutter: 40% ~ 60% 頁寬）字詞佔比 <= 20% 即判定為多欄排版
     """
-    if len(words) < 12:
+    if not words or len(words) < 12:
         return None
 
     mid_start = page_width * 0.40
@@ -60,15 +60,15 @@ def detect_column_split(words: List[Dict[str, Any]], page_width: float) -> Optio
     left_words = [w for w in words if w.get("x1", 0) <= mid_end]
     right_words = [w for w in words if w.get("x0", 0) >= mid_start]
 
-    # 確保兩欄都有足夠內容分佈
+    # 左右欄均須有實質文字分佈
     if len(left_words) < 3 or len(right_words) < 3:
         return None
 
-    # 中央過渡區詞彙
+    # 落在中線 Gutter 區域的字詞
     mid_words = [w for w in words if not (w.get("x1", 0) < mid_start or w.get("x0", 0) > mid_end)]
     
-    # 只要跨中線的詞彙比例低於 15%，即判定為雙欄結構
-    if (len(mid_words) / len(words)) <= 0.15:
+    # 只要跨中線比例低於 20%，判定為雙欄結構
+    if (len(mid_words) / len(words)) <= 0.20:
         return page_width / 2.0
 
     return None
