@@ -1,25 +1,71 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-HK" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laboris 勞則 | Statutory Workforce Ledger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
   
-  <!-- 嚴格安全標頭：嚴禁 unsafe-inline 腳本、啟用 frame-ancestors 'none' 杜絕點擊劫持 -->
+  <!-- 🔍 Google Search Console 驗證 -->
+  <meta name="google-site-verification" content="JZ5UohX-CcP_fQV0_DI9VadkKY4ZoTTkUifL88-fIcY">
+
+  <!-- 🔍 基礎 SEO 核心標籤 -->
+  <title>Laboris 勞則 | 香港法定勞動力總帳與 418 連續性合約精算決策引擎</title>
+  <meta name="description" content="Laboris（勞則）是專為香港企業打造的審計級勞動力政策總帳與精算決策引擎。針對 Cap. 57《僱傭條例》418 連續性合約門檻放寬（68/60小時）提供純本機隱私沙盒（PDPO 合規）、財務衝擊敏感度測算與董事會級行動卡。">
+  <meta name="keywords" content="Laboris, 勞則, 418連續性合約, 僱傭條例, Cap 57, 勞工處, 立法會, 勞顧會, 兼職合約, 人力資源管理, HR合規, 審計總帳, 離線精算, 香港勞工法">
+  <meta name="author" content="Laboris Governance Working Group">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://jackylawck.github.io/Laboris/">
+
+  <!-- 🌐 Open Graph / Facebook / LinkedIn 社交卡片 -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jackylawck.github.io/Laboris/">
+  <meta property="og:title" content="⚖️ Laboris 勞則 | 香港法定勞動力總帳與 418 精算決策引擎">
+  <meta property="og:description" content="純客戶端本地隱私沙盒（PDPO 零資料外洩）。秒級測算 Cap. 57 連續性合約門檻修訂之兼職福利增額與董事會治理行動卡。">
+  <meta property="og:image" content="https://jackylawck.github.io/Laboris/Laboris512icon.png">
+  <meta property="og:image:width" content="512">
+  <meta property="og:image:height" content="512">
+  <meta property="og:image:alt" content="Laboris 勞則 標誌 - 天平與審計總帳">
+  <meta property="og:locale" content="zh_HK">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:site_name" content="Laboris 勞則">
+
+  <!-- 🐦 Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="⚖️ Laboris 勞則 | Statutory Workforce Ledger">
+  <meta name="twitter:description" content="香港法定勞動力總帳與 418 連續性合約精算決策引擎。純前端本地隱私運算，零伺服器傳輸。">
+  <meta name="twitter:image" content="https://jackylawck.github.io/Laboris/Laboris512icon.png">
+
+  <!-- 📱 PWA 與手機主畫面 (Add to Home Screen) -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Laboris 勞則">
+  <meta name="application-name" content="Laboris 勞則">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="msapplication-TileColor" content="#0f172a">
+  
+  <!-- 🎨 圖示宣告 (Icons) -->
+  <link rel="icon" type="image/png" sizes="192x192" href="Laboris192icon.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="Laboris512icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="Laboris192icon.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="Laboris512icon.png">
+
+  <!-- 🛡️ 企業級安全策略：CSP (消除 frame-ancestors 警告) 與權限防護 -->
   <meta http-equiv="Content-Security-Policy" content="
     default-src 'none';
     script-src 'self';
-    style-src 'self';
-    img-src 'self' data:;
-    connect-src 'self';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data: https://jackylawck.github.io;
     font-src 'self';
+    connect-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'none';
-    frame-ancestors 'none';
+    upgrade-insecure-requests;
   ">
+  <meta http-equiv="Permissions-Policy" content="accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
-  <meta name="referrer" content="no-referrer">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <link rel="stylesheet" href="style.css">
 </head>
