@@ -14,33 +14,37 @@ def dual_column_pdf_stream() -> bytes:
     c = canvas.Canvas(buf, pagesize=letter)
     width, height = letter
 
-    # 左欄 (X: 50 ~ 250) - 放入足夠字數確保通過雙欄幾何判斷 (words >= 25)
+    # 左欄 (X: 50 ~ 220)：加入帶空格的單詞與法規錨點，確保左欄單詞量充足
     left_lines = [
-        "第 57 章《僱傭條例》檢討報告",
-        "第 4 條(1) 連續受僱規定評估說明",
-        "附表 1 擬議修訂方案 A 實施原則",
-        "法例基礎與合規性分析說明文字一",
-        "前線兼職員工福利保障擴大範疇二",
-        "連續性受僱時數計算規則說明三",
+        "Cap 57 Employment Ordinance Review Report",
+        "Section 4 Statutory Assessment Briefing Note",
+        "Schedule 1 Continuous Contract Evaluation Rules",
+        "第 57 章 《 僱傭條例 》 檢討 報告",
+        "第 4 條(1) 連續 受僱 規定 評估 準則",
+        "附表 1 擬議 修訂 方案 實施 原則",
+        "Audit Trail Evidence Verification Logic Framework",
+        "Deterministic Formula Calculations for Enterprise HR",
     ]
-    y = height - 100
+    y = height - 80
     for line in left_lines:
         c.drawString(50, y, line)
-        y -= 20
+        y -= 22
 
-    # 右欄 (X: 350 ~ 550)
+    # 右欄 (X: 350 ~ 550)：維持明確的中間間隔 (Gutter: 220 ~ 350)
     right_lines = [
-        "Section 4 Statutory Benefits Assessment",
-        "Paragraph 3.2 Financial Impact Evaluation",
+        "Section 4 Statutory Benefits Entitlement Summary",
+        "Paragraph 3.2 Financial Impact Provision Study",
         "Grace Period Schedule Forecast 180 Days",
-        "Operational Guidance for Corporate Employers",
-        "Audit Trail Integrity Verification Steps",
-        "Deterministic Formula Accrual Calculation",
+        "Operational Guidance for Corporate Employers Note",
+        "Continuous Contract Working Hours Threshold Evaluation",
+        "Composite Loading Factor Calculations for Budgeting",
+        "Board Level Compliance Action Playbook Preview",
+        "預期 寬限期 為 180 天 執行 指引",
     ]
-    y = height - 100
+    y = height - 80
     for line in right_lines:
         c.drawString(350, y, line)
-        y -= 20
+        y -= 22
 
     c.save()
     buf.seek(0)
@@ -101,7 +105,6 @@ def test_snapshot_sequence_ordering_under_same_second(tmp_path):
 
     archive_dir = tmp_path / "snapshots" / sid / "archive"
     assert archive_dir.exists()
-    # 修正：強制按檔名排序，避免不同 OS / File System 的 listdir 隨機無序
     archived_files = sorted(list(archive_dir.glob("*.gz")), key=lambda p: p.name)
     assert len(archived_files) >= 1
     assert "00000001_" in archived_files[0].name
