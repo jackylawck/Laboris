@@ -51,8 +51,9 @@ def test_chapter_pattern_statutory_short_circuit_in_large_document():
     assert res.has_critical_statutory_delta is True
 
 def test_old_html_selector_failure_forces_substantive_change():
-    old_html = b"<html><body><div id='deprecated-id'>舊版公告</div></body></html>"
-    new_html = b"<html><body><div id='active-content'><p>新版公告</p></div></body></html>"
+    # 修正：避免使用 b"..." 包裹非 ASCII 中文字元，改用 .encode("utf-8")
+    old_html = "<html><body><div id='deprecated-id'>舊版公告</div></body></html>".encode("utf-8")
+    new_html = "<html><body><div id='active-content'><p>新版公告</p></div></body></html>".encode("utf-8")
 
     res = semantic_html_diff(old_html, new_html, {"css_selector": "#active-content"})
     assert res.has_substantive_change is True
