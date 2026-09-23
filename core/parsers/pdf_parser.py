@@ -45,13 +45,32 @@ def extract_comprehensive_anchors(page_text: str, page_num: int) -> List[Dict[st
     return anchors
 
 def detect_column_split(words: List[Dict[str, Any]], page_width: float) -> Optional[float]:
-    if len(words) < 25:
+    """
+    幾何佈局雙欄檢測：
+    1. 詞彙數 >= 12
+    2. 左半區與右半區均有詞彙分佈
+    3. 頁面中央過渡帶詞彙密度低於兩側
+    """
+    if len(words) < 12:
         return None
-    mid_start = page_width * 0.42
-    mid_end = page_width * 0.58
-    mid_words = [w for w in words if not (w['x1'] < mid_start or w['x0'] > mid_end)]
-    if len(mid_words) / len(words) < 0.05:
+
+    mid_start = page_width * 0.40
+    mid_end = page_width * 0.60
+
+    left_words = [w for w in words if w.get("x1", 0) <= mid_end]
+    right_words = [w for w in words if w.get("x0", 0) >= mid_start]
+
+    # 確保兩欄都有足夠內容分佈
+    if len(left_words) < 3 or len(right_words) < 3:
+        return None
+
+    # 中央過渡區詞彙
+    mid_words = [w for w in words if not (w.get("x1", 0) < mid_start or w.get("x0", 0) > mid_end)]
+    
+    # 只要跨中線的詞彙比例低於 15%，即判定為雙欄結構
+    if (len(mid_words) / len(words)) <= 0.15:
         return page_width / 2.0
+
     return None
 
 def extract_page_text_geometry(page) -> str:
