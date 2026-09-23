@@ -1,0 +1,14 @@
+schema_version: "2.0.0"
+policy_id: "HK-CAP57-SEC-418"
+assumptions_version: "2026.1"
+
+actuarial_loadings:
+  low_scenario:
+    name: "保守模型"
+    composite_loading_factor: 0.122
+  base_scenario:
+    name: "基準模型"
+    composite_loading_factor: 0.145
+  high_scenario:
+    name: "壓力測試模型"
+    composite_loading_factor: 0.173
